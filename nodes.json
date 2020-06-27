@@ -1,208 +1,154 @@
 {
-    "$schema": "https://vega.github.io/schema/vega/v5.json",
-    "description": "A binned scatter plot example showing aggregate counts per binned cell.",
-    "width": 500,
-    "height": 500,
-    "padding": 5,
-    "autosize": "pad",
-  
-    "data": [
+  "$schema": "https://vega.github.io/schema/vega/v5.json",
+  "description": "A binned scatter plot example showing aggregate counts per binned cell.",
+  "width": 500,
+  "height": 500,
+  "padding": 5,
+  "autosize": "pad",
+
+  "data": [
+    {
+    "name": "NODES",
+      "url" : "https://raw.githubusercontent.com/ophirsw-zainar/test/master/nodes_ground_truth.json"
+    },
+    {
+      "name": "MEASURMENTS",
+      "url" : "https://raw.githubusercontent.com/ophirsw-zainar/test/master/data.json",  
+      
+      "transform": [
+       {
+        "type": "aggregate",
+        "groupby": ["node_source","node_destination"],
+        "fields": ["signal_stength", "Distance"],
+        "ops": [ "mean", "mean"],
+        "as": ["signal_stength_mean", "Distance_mean"]
+      }, 
       {
-        "name": "MEASURMENTS",
-        "values" : [
-            {"node_source": "A1","node_destination": "A2","signal_stength" : 10,"Distance" : 24},
-            {"node_source": "A1","node_destination": "A2","signal_stength" : 8,"Distance" : 22.5},
-            {"node_source": "A1","node_destination": "A2","signal_stength" : 9,"Distance" : 27},
-            {"node_source": "A1","node_destination": "A2","signal_stength" : 7,"Distance" : 23},
-            {"node_source": "A1","node_destination": "A2","signal_stength" : 8,"Distance" : 30},
-            {"node_source": "A1","node_destination": "A2","signal_stength" : 7,"Distance" : 27},
-            {"node_source": "A1","node_destination": "A2","signal_stength" : 9,"Distance" : 29},
-            {"node_source": "A1","node_destination": "A2","signal_stength" : 6,"Distance" : 26},
-            {"node_source": "A1","node_destination": "A2","signal_stength" : 9,"Distance" : 29.5},
-            {"node_source": "A1","node_destination": "A2","signal_stength" : 10,"Distance" : 30},
-            {"node_source": "A2","node_destination": "A1","signal_stength" : 8,"Distance" : 26.5},
-            {"node_source": "A2","node_destination": "A1","signal_stength" : 9,"Distance" : 27.5},
-            {"node_source": "A2","node_destination": "A1","signal_stength" : 10,"Distance" : 29},
-            {"node_source": "A2","node_destination": "A1","signal_stength" : 8,"Distance" : 28.5},
-            {"node_source": "A2","node_destination": "A1","signal_stength" : 9,"Distance" : 29.5},
-            {"node_source": "A2","node_destination": "A1","signal_stength" : 7,"Distance" : 25},
-            {"node_source": "A2","node_destination": "A1","signal_stength" : 10,"Distance" : 27},
-            {"node_source": "A2","node_destination": "A1","signal_stength" : 9,"Distance" : 29},
-            {"node_source": "A2","node_destination": "A1","signal_stength" : 10,"Distance" : 27.5},
-            {"node_source": "A2","node_destination": "A1","signal_stength" : 8,"Distance" : 30.5},
-            {"node_source": "A3","node_destination": "A2","signal_stength" : 10,"Distance" : 24},
-            {"node_source": "A3","node_destination": "A2","signal_stength" : 8,"Distance" : 22.5},
-            {"node_source": "A3","node_destination": "A2","signal_stength" : 9,"Distance" : 27},
-            {"node_source": "A3","node_destination": "A2","signal_stength" : 7,"Distance" : 23},
-            {"node_source": "A3","node_destination": "A2","signal_stength" : 8,"Distance" : 30},
-            {"node_source": "A3","node_destination": "A2","signal_stength" : 7,"Distance" : 27},
-            {"node_source": "A3","node_destination": "A2","signal_stength" : 9,"Distance" : 29},
-            {"node_source": "A3","node_destination": "A2","signal_stength" : 6,"Distance" : 26},
-            {"node_source": "A3","node_destination": "A2","signal_stength" : 9,"Distance" : 29.5},
-            {"node_source": "A3","node_destination": "A2","signal_stength" : 10,"Distance" : 30},
-            {"node_source": "A2","node_destination": "A3","signal_stength" : 8,"Distance" : 26.5},
-            {"node_source": "A2","node_destination": "A3","signal_stength" : 9,"Distance" : 27.5},
-            {"node_source": "A2","node_destination": "A3","signal_stength" : 10,"Distance" : 29},
-            {"node_source": "A2","node_destination": "A3","signal_stength" : 8,"Distance" : 28.5},
-            {"node_source": "A2","node_destination": "A3","signal_stength" : 9,"Distance" : 29.5},
-            {"node_source": "A2","node_destination": "A3","signal_stength" : 7,"Distance" : 25},
-            {"node_source": "A2","node_destination": "A3","signal_stength" : 10,"Distance" : 27},
-            {"node_source": "A2","node_destination": "A3","signal_stength" : 9,"Distance" : 29},
-            {"node_source": "A2","node_destination": "A3","signal_stength" : 10,"Distance" : 27.5},
-            {"node_source": "A2","node_destination": "A3","signal_stength" : 8,"Distance" : 30.5},
-            {"node_source": "A3","node_destination": "A1","signal_stength" : 10,"Distance" : 24},
-            {"node_source": "A3","node_destination": "A1","signal_stength" : 8,"Distance" : 22.5},
-            {"node_source": "A3","node_destination": "A1","signal_stength" : 9,"Distance" : 27},
-            {"node_source": "A3","node_destination": "A1","signal_stength" : 7,"Distance" : 23},
-            {"node_source": "A3","node_destination": "A1","signal_stength" : 8,"Distance" : 30},
-            {"node_source": "A3","node_destination": "A1","signal_stength" : 7,"Distance" : 27},
-            {"node_source": "A3","node_destination": "A1","signal_stength" : 9,"Distance" : 29},
-            {"node_source": "A3","node_destination": "A1","signal_stength" : 6,"Distance" : 26},
-            {"node_source": "A3","node_destination": "A1","signal_stength" : 9,"Distance" : 29.5},
-            {"node_source": "A3","node_destination": "A1","signal_stength" : 10,"Distance" : 30},
-            {"node_source": "A1","node_destination": "A3","signal_stength" : 8,"Distance" : 26.5},
-            {"node_source": "A1","node_destination": "A3","signal_stength" : 9,"Distance" : 27.5},
-            {"node_source": "A1","node_destination": "A3","signal_stength" : 10,"Distance" : 29},
-            {"node_source": "A1","node_destination": "A3","signal_stength" : 8,"Distance" : 28.5},
-            {"node_source": "A1","node_destination": "A3","signal_stength" : 9,"Distance" : 29.5},
-            {"node_source": "A1","node_destination": "A3","signal_stength" : 7,"Distance" : 25},
-            {"node_source": "A1","node_destination": "A3","signal_stength" : 10,"Distance" : 27.5},
-            {"node_source": "A1","node_destination": "A3","signal_stength" : 9,"Distance" : 29},
-            {"node_source": "A1","node_destination": "A3","signal_stength" : 10,"Distance" : 27.5},
-            {"node_source": "A1","node_destination": "A3","signal_stength" : 8,"Distance" : 30.5
+        "type": "lookup",
+        "from": "NODES",
+        "key": "node_name",
+        "fields": ["node_source"],
+        "values": ["x","y","node_name"],
+        "as": ["node_source_pos_x","node_source_pos_y","node_name_src"],
+        "default": "some label"
+      },
+       {
+        "type": "lookup",
+        "from": "NODES",
+        "key": "node_name",
+        "fields": ["node_destination"],
+        "values": ["x","y","node_name"],
+        "as": ["node_destination_pos_x","node_destination_pos_y","node_name_dest"],
+        "default": "some label"
+      }
+      ]
+    }
+  ],
+
+  "scales": [
+    {
+      "name": "x",
+      "type": "linear",
+      "round": true,
+      "nice": true,
+      "zero": true,
+      "domain": [0, 15],
+      "range": "width"
+    },
+    {
+      "name": "y",
+      "type": "linear",
+      "round": true,
+      "nice": true,
+      "domain": [15, 30],
+      "range": "height",
+      "zero": false
+    },
+    {
+      "name": "singal_strength",
+      "type": "linear",
+      "round": true,
+      "nice": true,
+      "domain": [0, 1000],
+      "zero": false
+    },
+    {
+      "name": "distance",
+      "type": "linear",
+      "round": true,
+      "nice": true,
+      "domain": [0, 10000],
+      "zero": false
+    }
+  ],
+"axes": [
+    {
+      "scale": "x",
+      "grid": true,
+      "domain": false,
+      "orient": "bottom",
+      "tickCount": 10,
+      "title": "meter"
+    },
+    {
+      "scale": "y",
+      "grid": true,
+      "domain": false,
+      "orient": "left",
+      "tickCount": 10,
+      "title": "meter"
+    }
+  ],
+  "marks": [
+    {
+      "name": "marks",
+      "type": "symbol",
+      "from": {"data": "NODES"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "field": "x"},
+          "y": {"scale": "y", "field": "y"},
+          "size": {"scale": "x","value": 4},
+          "shape": {"value": "triangle"},
+          "strokeWidth": {"value": 2},
+          "opacity": {"value": 1},
+          "stroke": {"value": "#4682b4"},
+          "fill": {"value": "#4682b4"},
+          "tooltip" : {"field": "node_name"}
+        }
+      }
+    },
+    {
+            "name": "test",
+            "type": "line",
+            "from": {"data": "MEASURMENTS"},
+            "encode": {
+              "update": {
+                "x": {"scale": "x", "field": "node_source_pos_x"},
+                "x2": {"scale": "x", "field": "node_destination_pos_x"},
+                "y": {"scale": "y", "field": "node_source_pos_y"},
+                "y2": {"scale": "y", "field": "node_destination_pos_y"},
+                 "strokeWidth":  {"value": 1},
+                "opacity": {"value": 1},
+                "stroke": {"value": "#4682b4"}
+              }
             }
-          ]    
-      },
-      {
-      "name": "NODES",
-        "values" : [
-            {"node_name": "a1","x" : 6.858, "y": 22.098},
-            {"node_name": "c1","x" : 4.6482, "y": 27.432},
-            {"node_name": "b3","x" : 9.0678, "y": 27.432},
-            {"node_name": "c4","x" : 12.192, "y": 24.3078},
-            {"node_name": "c9","x" : 12.192, "y": 19.8882},
-            {"node_name": "a4","x" : 9.0678, "y": 16.764},
-            {"node_name": "b4","x" : 4.6482, "y": 16.764},
-            {"node_name": "a3","x" : 1.524, "y": 19.8882},
-            {"node_name": "c10","x" : 1.524, "y": 24.1554}
-        ]
-      }
-    ],
-  
-    "scales": [
-      {
-        "name": "x",
-        "type": "linear",
-        "round": true,
-        "nice": true,
-        "zero": true,
-        "domain": [0, 15],
-        "range": "width"
-      },
-      {
-        "name": "y",
-        "type": "linear",
-        "round": true,
-        "nice": true,
-        "domain": [15, 30],
-        "range": "height",
-        "zero": false
-      }
-    ],
-  "axes": [
-      {
-        "scale": "x",
-        "grid": true,
-        "domain": false,
-        "orient": "bottom",
-        "tickCount": 10,
-        "title": "meter"
-      },
-      {
-        "scale": "y",
-        "grid": true,
-        "domain": false,
-        "orient": "left",
-        "tickCount": 10,
-        "title": "meter"
-      }
-    ],
-    "marks": [
-      {
-        "name": "marks",
-        "type": "symbol",
-        "from": {"data": "NODES"},
-        "encode": {
-          "update": {
-            "x": {"scale": "x", "field": "x"},
-            "y": {"scale": "y", "field": "y"},
-            "size": {"scale": "x","value": 4},
-            "shape": {"value": "triangle"},
-            "strokeWidth": {"value": 2},
-            "opacity": {"value": 1},
-            "stroke": {"value": "#4682b4"},
-            "fill": {"value": "#4682b4"},
-            "tooltip" : {"field": "node_name"}
-          }
-        }
-      },
-      {
-        "type": "text",
-        "name": "value-text",
-        "from": {"data": "NODES"},
-        "encode": {
-          "update": {
-            "x": {"scale": "x","field": "x"},
-            "y": {"scale": "y","field": "y"},
-            "text": {"field": "node_name"},
-            "fill": {"value": "black"},
-            "dx" :  {"value": -20},
-            "dy" : {"value": -10}
-          }
+    },
+      
+    {
+      "type": "text",
+      "name": "value-text",
+      "from": {"data": "NODES"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x","field": "x"},
+          "y": {"scale": "y","field": "y"},
+          "text": {"field": "node_name"},
+          "fill": {"value": "black"},
+          "dx" :  {"value": -20},
+          "dy" : {"value": -10}
         }
       }
-    ]
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  }
+    }
+  ]
+}

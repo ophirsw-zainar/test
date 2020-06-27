@@ -1,0 +1,20 @@
+{
+	"method": "phase",
+	"session_id": "1593162160159479",
+	"deployment_id": "container",
+	"node00": "znra2",
+	"node01": "znra5",
+	"timestamp": "1593162166",
+	"distance_estimate": "44.3743",
+	"good_band_fraction": "1",
+	"distance_estimate_pair_slope": "44.9956",
+	"pair_slope_unc": "0.29809",
+	"avg_power_first_band_first_rx": "360148",
+	"avg_power_first_band_second_rx": "529452",
+	"relative_clock": "0.111111",
+	"relative_clock_ppb": "30",
+	"num_bands": "10",
+	"freq_incr_khz": "2000",
+	"freq_start_khz": "905000",
+	"pss_toa_rx_tsctr_offset": "66968"
+}
