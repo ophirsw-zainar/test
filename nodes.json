@@ -5,7 +5,67 @@
   "height": 500,
   "padding": 5,
   "autosize": "pad",
-
+"signals": [
+  {
+    "name": "Metric", "value": "Viridis",
+    "bind": {
+      "input": "select",
+      "options": [
+        "Viridis",
+        "Magma",
+        "Inferno",
+        "Plasma",
+        "DarkBlue",
+        "DarkGold",
+        "DarkGreen",
+        "DarkMulti",
+        "DarkRed",
+        "LightGreyRed",
+        "LightGreyTeal",
+        "LightMulti",
+        "LightOrange",
+        "LightTealBlue",
+        "Blues",
+        "Browns",
+        "Greens",
+        "Greys",
+        "Oranges",
+        "Purples",
+        "Reds",
+        "TealBlues",
+        "Teals",
+        "WarmGreys",
+        "BlueOrange",
+        "BrownBlueGreen",
+        "PurpleGreen",
+        "PinkYellowGreen",
+        "PurpleOrange",
+        "RedBlue",
+        "RedGrey",
+        "RedYellowBlue",
+        "RedYellowGreen",
+        "BlueGreen",
+        "BluePurple",
+        "GoldGreen",
+        "GoldOrange",
+        "GoldRed",
+        "GreenBlue",
+        "OrangeRed",
+        "PurpleBlueGreen",
+        "PurpleBlue",
+        "PurpleRed",
+        "RedPurple",
+        "YellowGreenBlue",
+        "YellowGreen",
+        "YellowOrangeBrown",
+        "YellowOrangeRed"
+      ]
+    }
+  },
+  {
+    "name": "reverse", "value": false, "bind": {"input": "checkbox"}
+  }
+],
   "data": [
     {
     "name": "NODES",
@@ -29,8 +89,7 @@
         "key": "node_name",
         "fields": ["node_source"],
         "values": ["x","y","node_name"],
-        "as": ["node_source_pos_x","node_source_pos_y","node_name_src"],
-        "default": "some label"
+        "as": ["node_source_pos_x","node_source_pos_y","node_name_src"]
       },
        {
         "type": "lookup",
@@ -38,8 +97,7 @@
         "key": "node_name",
         "fields": ["node_destination"],
         "values": ["x","y","node_name"],
-        "as": ["node_destination_pos_x","node_destination_pos_y","node_name_dest"],
-        "default": "some label"
+        "as": ["node_destination_pos_x","node_destination_pos_y","node_name_dest"]
       }
       ]
     }
@@ -79,6 +137,14 @@
       "nice": true,
       "domain": [0, 10000],
       "zero": false
+    },
+      {
+      "name": "signal_stength_color",
+      "type": "linear",
+      "range": {"scheme": {"signal": "Metric"}},
+      "domain": [8,10],
+      "reverse": {"signal": "reverse"},
+      "zero": false, "nice": true
     }
   ],
 "axes": [
@@ -119,20 +185,23 @@
       }
     },
     {
-            "name": "test",
-            "type": "line",
-            "from": {"data": "MEASURMENTS"},
-            "encode": {
-              "update": {
-                "x": {"scale": "x", "field": "node_source_pos_x"},
-                "x2": {"scale": "x", "field": "node_destination_pos_x"},
-                "y": {"scale": "y", "field": "node_source_pos_y"},
-                "y2": {"scale": "y", "field": "node_destination_pos_y"},
-                 "strokeWidth":  {"value": 1},
-                "opacity": {"value": 1},
-                "stroke": {"value": "#4682b4"}
-              }
-            }
+      "name": "test",
+      "type": "rule",
+      "from": {"data": "MEASURMENTS"},
+      "encode": {
+        "update": {
+          "x": {"scale": "x", "field": "node_source_pos_x"},
+          "x2": {"scale": "x", "field": "node_destination_pos_x"},
+          "y": {"scale": "y", "field": "node_source_pos_y"},
+          "y2": {"scale": "y", "field": "node_destination_pos_y"},
+          "strokeWidth":  {"value": 3},
+          "opacity": {"value": 1},
+          "stroke": {"scale": "signal_stength_color" , "field": "signal_stength_mean"},
+        "tooltip": {
+          "signal": "{'pair_slope_unc': datum.signal_stength_mean, 'distance std': format(datum.Distance_mean , '.2f')}"
+        }
+        }
+      }
     },
       
     {
